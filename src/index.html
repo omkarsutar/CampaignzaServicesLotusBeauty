@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>CampaignzaClient01</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <!-- Meta Pixel Code -->
+  <script>
+    !function (f, b, e, v, n, t, s) {
+      if (f.fbq) return; n = f.fbq = function () {
+        n.callMethod ?
+          n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+      };
+      if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+      n.queue = []; t = b.createElement(e); t.async = !0;
+      t.src = v; s = b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t, s)
+    }(window, document, 'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+  </script>
+  <!-- End Meta Pixel Code -->
+
+  <script>
+    (function () {
+      // Configuration Endpoint
+      const TRACK_URL = 'https://toogplqvzycbngfzsutb.supabase.co/functions/v1/track-web-visit';
+      const TRACK_STATE_KEY = '__track_visit_state__';
+      const TRACK_STATE_WINDOW_MS = 300000;
+
+      function getRecentTrackState() {
+        try {
+          const rawState = sessionStorage.getItem(TRACK_STATE_KEY);
+          if (!rawState) {
+            return null;
+          }
+
+          const parsedState = JSON.parse(rawState);
+          if (!parsedState || typeof parsedState.ts !== 'number') {
+            return null;
+          }
+
+          if (Date.now() - parsedState.ts > TRACK_STATE_WINDOW_MS) {
+            return null;
+          }
+
+          return parsedState;
+        } catch (_error) {
+          return null;
+        }
+      }
+
+      function markTrackedVisit() {
+        try {
+          sessionStorage.setItem(TRACK_STATE_KEY, JSON.stringify({
+            ts: Date.now(),
+            url: window.location.href
+          }));
+        } catch (_error) {
+          // Session storage can be unavailable in private modes; tracking still proceeds.
+        }
+      }
+
+      function trackWebsiteVisit() {
+        if (getRecentTrackState()) {
+          return;
+        }
+
+        markTrackedVisit();
+        const currentUrlString = window.location.href;
+        fetch(TRACK_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            referrer_raw: currentUrlString
+          }),
+          mode: 'cors',
+          credentials: 'omit',
+          keepalive: true
+        })
+          .then(response => response.json())
+          .catch(error => console.error('Tracker encountered network layout fault:', error));
+      }
+
+      // Execute tracking logic once per page load.
+      trackWebsiteVisit();
+    })();
+  </script>
+</head>
+
+<body>
+  <app-root></app-root>
+</body>
+
+</html>

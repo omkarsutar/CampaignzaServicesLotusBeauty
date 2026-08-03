@@ -1,0 +1,75 @@
+@if (loading()) {
+<main class="review-page">
+  <section class="review-card loading-card">Loading brand data...</section>
+</main>
+} @else if (error()) {
+<main class="review-page">
+  <section class="review-card error-card">{{ error() }}</section>
+</main>
+} @else if (brand(); as currentBrand) {
+<main class="review-page">
+  <section class="review-card" aria-labelledby="page-title">
+    @if (currentBrand.brand_photo_url) {
+    <img class="brand-logo" [src]="currentBrand.brand_photo_url" [alt]="currentBrand.brand_name + ' logo'" />
+    }
+
+    <p class="eyebrow">STEP 1 OF 2 · BEFORE GOOGLE</p>
+    <h1 id="page-title">Prepare Your Google Review</h1>
+
+    <div class="language-navigation" aria-label="Question language">
+      <button type="button" [class.active]="language() === 'en'" (click)="selectLanguage('en')">English</button>
+      <button type="button" [class.active]="language() === 'hi'" (click)="selectLanguage('hi')">हिन्दी</button>
+      <button type="button" [class.active]="language() === 'mr'" (click)="selectLanguage('mr')">मराठी</button>
+    </div>
+
+    @if (questions().length) {
+    <div class="question-panel" aria-live="polite">
+      <span class="question-label">QUESTION {{ questionPosition() + 1 }} OF {{ questions().length }}</span>
+      <p>{{ currentQuestion() }}</p>
+    </div>
+
+    <div class="option-navigation" aria-label="Question navigation">
+      <button type="button" class="secondary-button" (click)="showPrevious()"
+        [disabled]="questionPosition() === 0">Previous</button>
+      <span>Question {{ questionPosition() + 1 }}</span>
+      <button type="button" class="secondary-button" (click)="showNext()"
+        [disabled]="questionPosition() === questions().length - 1">Next</button>
+    </div>
+
+    <button type="button" class="speak-button" [class.listening]="isListening()" (click)="toggleSpeech()">
+      <span aria-hidden="true">{{ isListening() ? '■' : '🎙' }}</span>
+      {{ isListening() ? 'Stop Listening' : 'Speak Your Answer' }}
+    </button>
+
+    <p class="speech-message" aria-live="polite">{{ speechMessage() }}</p>
+
+    <label class="answer-label" for="answer">Your answers</label>
+    <textarea id="answer" class="answer-box" [value]="answerText()" (input)="updateAnswer($event)"
+      placeholder="Your spoken answers will appear here. You can edit them before continuing."></textarea>
+
+    <button type="button" class="primary-button" [disabled]="!answerText().trim()" (click)="copyAndContinue()">
+      {{ copied() ? 'Copied — Opening Google' : 'Copy Answer & Open Google Reviews' }}
+    </button>
+    } @else {
+    <p class="status-message error-message">No questions are available in this language.</p>
+    }
+
+    <p></p>
+
+    <p class="intro">
+      This is a short preparation step, not the Google review page. Answer a few simple questions about your experience
+      with {{ currentBrand.brand_name }}. When you continue, we will open the official Google review page for you.
+    </p>
+
+    @if (copyError()) {
+    <p class="status-message error-message">Please enter or speak an answer before continuing. If copying is blocked,
+      you can still copy the text manually.</p>
+    }
+
+    <p class="privacy-note">
+      Review your answer before continuing. The next page will be Google’s official review page, where you can paste and
+      submit your feedback only if it reflects your genuine experience.
+    </p>
+  </section>
+</main>
+}
