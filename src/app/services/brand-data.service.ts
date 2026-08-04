@@ -13,6 +13,9 @@ export interface BrandData {
   gmb_review_texts_mr: string[] | null;
   whatsapp_no: string | null;
   whatsapp_msg_text: string | null;
+  youtube_url: string | null;
+  instagram_url: string | null;
+  facebook_url: string | null;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -88,6 +91,9 @@ export class BrandDataService {
           'gmb_review_texts_mr',
           'whatsapp_no',
           'whatsapp_msg_text',
+          'youtube_url',
+          'instagram_url',
+          'facebook_url',
         ].join(','),
         is_active: 'eq.true',
         limit: '1',
