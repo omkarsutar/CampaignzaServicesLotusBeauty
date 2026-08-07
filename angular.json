@@ -6,7 +6,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "CampaignzaClient01": {
+    "campaignza-services": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -60,10 +60,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "CampaignzaClient01:build:production"
+              "buildTarget": "campaignza-services:build:production"
             },
             "development": {
-              "buildTarget": "CampaignzaClient01:build:development"
+              "buildTarget": "campaignza-services:build:development"
             }
           },
           "defaultConfiguration": "development"
