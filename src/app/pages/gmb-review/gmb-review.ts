@@ -53,6 +53,7 @@ export class gmbReview {
   readonly speechMessage = signal('');
   readonly copied = signal(false);
   readonly copyError = signal(false);
+  readonly selectedTileIndex = signal<number | null>(null);
 
   readonly questions = computed(() => {
     const currentBrand = this.brand();
@@ -171,6 +172,33 @@ export class gmbReview {
       this.copied.set(true);
     } catch {
       this.copyError.set(true);
+    }
+
+    const fbq = (window as Window & {
+      fbq?: (...args: unknown[]) => void;
+    }).fbq;
+    fbq?.('track', 'Lead');
+
+    window.setTimeout(() => {
+      window.location.href = this.googleReviewUrl;
+    }, 400);
+  }
+
+  async selectAndPaste(text: string, index: number): Promise<void> {
+    const cleanText = text.trim();
+    if (!cleanText) return;
+
+    this.selectedTileIndex.set(index);
+
+    const currentBrand = this.brand();
+    if (currentBrand?.id) {
+      this.brandDataService.markGmbReviewTextUsed(currentBrand.id, cleanText);
+    }
+
+    try {
+      await navigator.clipboard.writeText(cleanText);
+    } catch (e) {
+      console.error('Failed to copy text to clipboard:', e);
     }
 
     const fbq = (window as Window & {

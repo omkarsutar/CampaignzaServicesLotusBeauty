@@ -14,7 +14,25 @@
     }
 
     <p class="eyebrow">STEP 1 OF 2 · BEFORE GOOGLE</p>
-    <h1 id="page-title">Prepare Your Google Review</h1>
+
+    @if (currentBrand.gmb_review_texts && currentBrand.gmb_review_texts.length) {
+    <div class="review-tiles-section" aria-label="Pre-written review options">
+      <h2 class="tiles-section-title">READY-TO-USE REVIEWS</h2>
+      <div class="review-tiles-scroll">
+        @for (reviewText of currentBrand.gmb_review_texts; track $index) {
+        <div class="review-tile">
+          <p class="review-tile-text">{{ reviewText }}</p>
+          <button type="button" class="select-paste-button" (click)="selectAndPaste(reviewText, $index)">
+            {{ selectedTileIndex() === $index ? 'Copied — Opening Google' : 'Select and Paste' }}
+          </button>
+        </div>
+        }
+      </div>
+    </div>
+    <h1 id="page-title">OR</h1>
+    }
+
+    <h3 id="page-title">Prepare Your Google Review by answering questions</h3>
 
     <div class="language-navigation" aria-label="Question language">
       <button type="button" [class.active]="language() === 'en'" (click)="selectLanguage('en')">English</button>
@@ -46,6 +64,8 @@
     <label class="answer-label" for="answer">Your answers</label>
     <textarea id="answer" class="answer-box" [value]="answerText()" (input)="updateAnswer($event)"
       placeholder="Your spoken answers will appear here. You can edit them before continuing."></textarea>
+
+    <p></p>
 
     <button type="button" class="primary-button" [disabled]="!answerText().trim()" (click)="copyAndContinue()">
       {{ copied() ? 'Copied — Opening Google' : 'Copy Answer & Open Google Reviews' }}

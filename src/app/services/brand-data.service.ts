@@ -111,6 +111,34 @@ export class BrandDataService {
     }
   }
 
+  async markGmbReviewTextUsed(brandId: string, reviewText: string): Promise<boolean> {
+    try {
+      const endpoint = `${supabaseConfig.url}/rest/v1/rpc/mark_gmb_review_text_used`;
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          apikey: supabaseConfig.anonKey,
+          Authorization: `Bearer ${supabaseConfig.anonKey}`,
+        },
+        body: JSON.stringify({
+          p_brand_id: brandId,
+          p_review_text: reviewText,
+        }),
+      });
+
+      if (!response.ok) {
+        console.warn('RPC mark_gmb_review_text_used response status:', response.status);
+        return false;
+      }
+
+      return true;
+    } catch (e) {
+      console.error('Error marking GMB review text as used:', e);
+      return false;
+    }
+  }
+
   private getParamFromUrl(param: string): string | null {
     // 1. Try URL search parameters (before hash)
     const searchParams = new URLSearchParams(window.location.search);
