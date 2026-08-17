@@ -67,27 +67,6 @@
   display: flex;
   flex-direction: column;
   gap: 14px;
-  max-height: 250px;
-  overflow-y: auto;
-  padding-right: 4px;
-}
-
-.review-tiles-scroll::-webkit-scrollbar {
-  width: 6px;
-}
-
-.review-tiles-scroll::-webkit-scrollbar-track {
-  background: #161b22;
-  border-radius: 3px;
-}
-
-.review-tiles-scroll::-webkit-scrollbar-thumb {
-  background: #30363d;
-  border-radius: 3px;
-}
-
-.review-tiles-scroll::-webkit-scrollbar-thumb:hover {
-  background: #484f58;
 }
 
 .review-tile {
