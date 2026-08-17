@@ -59,9 +59,9 @@ export class gmbReview {
     if (!currentBrand) return [];
 
     switch (this.language()) {
-      case 'hi': return currentBrand.gmb_review_texts_hi ?? [];
-      case 'mr': return currentBrand.gmb_review_texts_mr ?? [];
-      default: return currentBrand.gmb_review_texts ?? [];
+      case 'hi': return currentBrand.gmb_review_ques_hi ?? [];
+      case 'mr': return currentBrand.gmb_review_ques_mr ?? [];
+      default: return currentBrand.gmb_review_ques ?? [];
     }
   });
 
