@@ -3,23 +3,38 @@
     position: fixed;
     left: 0;
     right: 0;
-    bottom: 8px;
+    bottom: 12px;
     text-align: center;
     pointer-events: none;
     /* allow clicks only on the link */
+    z-index: 9999;
 }
 
 .powered-by a {
     pointer-events: auto;
-    color: rgba(0, 0, 0, 0.5);
+    color: rgba(255, 255, 255, 0.75) !important;
     font-size: 12px;
-    text-decoration: none;
-    background: transparent;
-    padding: 4px 8px;
-    border-radius: 4px;
+    text-decoration: none !important;
+    background: transparent !important;
+    padding: 2px 6px !important;
+    border-radius: 2px !important;
+    display: inline-block !important;
+    margin: 0 auto !important;
+    box-shadow: none !important;
+    border: none !important;
 }
 
 .powered-by a:hover {
-    color: rgba(0, 0, 0, 0.8);
-    text-decoration: underline;
+    color: rgba(255, 255, 255, 0.95) !important;
+    text-decoration: underline !important;
+}
+
+/* ensure it doesn't look like a primary button from global rules */
+.powered-by a[role="button"],
+.powered-by a.button,
+.powered-by a.primary-button {
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 2px 6px !important;
 }
