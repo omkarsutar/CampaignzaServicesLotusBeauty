@@ -42,3 +42,6 @@ __screenshots__/
 # System files
 .DS_Store
 Thumbs.db
+
+# Local backup dump - ignore and keep out of repo
+/backupOfsupaDbCampaignzaApp01On08Sept2026/
