@@ -1,6 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
 import { BrandData, BrandDataService } from '../../services/brand-data.service';
-import { openWithDeepLink } from '../../utils/deep-link';
 
 @Component({
   selector: 'app-home',
@@ -50,17 +49,5 @@ export class Home {
     window.setTimeout(() => {
       window.location.href = this.whatsappUrl;
     }, 400);
-  }
-
-  onPoweredClick(event: MouseEvent): void {
-    event.preventDefault();
-    // Track click
-    const fbq = (window as Window & { fbq?: (...args: unknown[]) => void }).fbq;
-    fbq?.('track', 'Lead');
-
-    // Campaignza Instagram deep link + web fallback
-    const deep = 'instagram://user?username=campaignza_';
-    const web = 'https://www.instagram.com/campaignza_/';
-    openWithDeepLink(deep, web, 900);
   }
 }
