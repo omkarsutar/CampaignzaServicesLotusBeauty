@@ -1,5 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { BrandData, BrandDataService } from '../../services/brand-data.service';
+import { openWithDeepLink } from '../../utils/deep-link';
 
 @Component({
   selector: 'app-pre-facebook',
@@ -46,7 +47,10 @@ export class PreFacebook {
     fbq?.('track', 'Lead');
 
     window.setTimeout(() => {
-      window.location.href = this.facebookUrl;
+      const b = this.brand();
+      const web = b?.facebook_url ?? this.facebookUrl;
+      const deep = b?.facebook_deep_link ?? null;
+      openWithDeepLink(deep, web);
     }, 400);
   }
 }

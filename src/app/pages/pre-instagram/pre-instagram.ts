@@ -1,5 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { BrandData, BrandDataService } from '../../services/brand-data.service';
+import { openWithDeepLink } from '../../utils/deep-link';
 
 @Component({
   selector: 'app-pre-instagram',
@@ -46,7 +47,10 @@ export class PreInstagram {
     fbq?.('track', 'Lead');
 
     window.setTimeout(() => {
-      window.location.href = this.instagramUrl;
+      const b = this.brand();
+      const web = b?.instagram_url ?? this.instagramUrl;
+      const deep = b?.instagram_deep_link ?? null;
+      openWithDeepLink(deep, web);
     }, 400);
   }
 }

@@ -1,5 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { BrandData, BrandDataService } from '../../services/brand-data.service';
+import { openWithDeepLink } from '../../utils/deep-link';
 
 @Component({
   selector: 'app-pre-youtube',
@@ -46,7 +47,10 @@ export class PreYoutube {
     fbq?.('track', 'Lead');
 
     window.setTimeout(() => {
-      window.location.href = this.youtubeUrl;
+      const b = this.brand();
+      const web = b?.youtube_url ?? this.youtubeUrl;
+      const deep = b?.youtube_deep_link ?? null;
+      openWithDeepLink(deep, web);
     }, 400);
   }
 }

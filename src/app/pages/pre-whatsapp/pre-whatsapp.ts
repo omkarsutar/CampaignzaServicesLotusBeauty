@@ -1,5 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { BrandData, BrandDataService } from '../../services/brand-data.service';
+import { openWithDeepLink } from '../../utils/deep-link';
 
 @Component({
   selector: 'app-pre-whatsapp',
@@ -48,7 +49,15 @@ export class PreWhatsapp {
     fbq?.('track', 'Lead');
 
     window.setTimeout(() => {
-      window.location.href = this.whatsappUrl;
+      const b = this.brand();
+      if (!b?.whatsapp_no) {
+        return;
+      }
+      const number = b.whatsapp_no.replace(/\D/g, '');
+      const message = encodeURIComponent(b.whatsapp_msg_text ?? 'Hello');
+      const web = `https://wa.me/${number}?text=${message}`;
+      const deep = b.whatsapp_deep_link ?? `whatsapp://send?phone=${number}&text=${message}`;
+      openWithDeepLink(deep, web);
     }, 400);
   }
 }

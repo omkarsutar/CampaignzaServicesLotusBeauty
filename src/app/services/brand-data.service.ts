@@ -17,6 +17,11 @@ export interface BrandData {
   youtube_url: string | null;
   instagram_url: string | null;
   facebook_url: string | null;
+  // deep-link overrides (optional)
+  instagram_deep_link?: string | null;
+  facebook_deep_link?: string | null;
+  youtube_deep_link?: string | null;
+  whatsapp_deep_link?: string | null;
 }
 
 @Injectable({ providedIn: 'root' })
