@@ -9,7 +9,7 @@
     }
 
     <!-- Trust Indicators -->
-    <h2>Welcome to {{ currentBrand.brand_name }}!</h2>
+    <h2>Welcome to<br>{{ currentBrand.brand_name }}!</h2>
     <p>Tap the button below to connect
         with our official business team instantly.</p>
 
@@ -17,6 +17,9 @@
     <a [href]="whatsappUrl" (click)="onContinue($event)">
         Continue To Whatsapp
     </a>
+    <div class="powered-by">
+        <a href="https://www.instagram.com/campaignza_/" (click)="onPoweredClick($event)">powered by Campaignza</a>
+    </div>
 
 </div>
 }

@@ -1,15 +1,15 @@
 @if (loading()) {
-    <div class="card loading-card">Loading...</div>
+<div class="card loading-card">Loading...</div>
 } @else if (error()) {
-    <div class="card error-card">{{ error() }}</div>
+<div class="card error-card">{{ error() }}</div>
 } @else if (brand(); as currentBrand) {
 <div class="card">
     @if (currentBrand.brand_photo_url) {
-        <img class="brand-logo" [src]="currentBrand.brand_photo_url" [alt]="currentBrand.brand_name + ' logo'" />
+    <img class="brand-logo" [src]="currentBrand.brand_photo_url" [alt]="currentBrand.brand_name + ' logo'" />
     }
 
     <!-- Trust Indicators -->
-    <h2>Welcome to {{ currentBrand.brand_name }}!</h2>
+    <h2>Welcome to<br>{{ currentBrand.brand_name }}!</h2>
     <p>Tap the button below to connect
         with our official business team instantly.</p>
 
@@ -17,6 +17,9 @@
     <a [href]="whatsappUrl" (click)="onContinue($event)">
         CONTINUE
     </a>
+    <div class="powered-by">
+        <a href="https://www.instagram.com/campaignza_/" (click)="onPoweredClick($event)">powered by Campaignza</a>
+    </div>
 
 </div>
 }

@@ -53,4 +53,11 @@ export class PreFacebook {
       openWithDeepLink(deep, web);
     }, 400);
   }
+
+  onPoweredClick(event: MouseEvent): void {
+    event.preventDefault();
+    const deep = 'instagram://user?username=campaignza_';
+    const web = 'https://www.instagram.com/campaignza_/';
+    openWithDeepLink(deep, web, 900);
+  }
 }

@@ -9,7 +9,7 @@
     }
 
     <!-- Trust Indicators -->
-    <h2>Welcome to {{ currentBrand.brand_name }}!</h2>
+    <h2>Welcome to<br>{{ currentBrand.brand_name }}!</h2>
     <p>Tap the button below to open
         our official Facebook page instantly.</p>
 
@@ -17,6 +17,9 @@
     <a [href]="facebookUrl" (click)="onContinue($event)">
         Continue To Facebook
     </a>
+    <div class="powered-by">
+        <a href="https://www.instagram.com/campaignza_/" (click)="onPoweredClick($event)">powered by Campaignza</a>
+    </div>
 
 </div>
 }
