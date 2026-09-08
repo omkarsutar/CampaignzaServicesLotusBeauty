@@ -1,0 +1,25 @@
+/* Subtle powered-by footer */
+.powered-by {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 8px;
+    text-align: center;
+    pointer-events: none;
+    /* allow clicks only on the link */
+}
+
+.powered-by a {
+    pointer-events: auto;
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 12px;
+    text-decoration: none;
+    background: transparent;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.powered-by a:hover {
+    color: rgba(0, 0, 0, 0.8);
+    text-decoration: underline;
+}
